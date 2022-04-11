@@ -45,7 +45,7 @@
         <input class="form-control" type="text" name="price" id="price" placeholder="Preço"
             value="{{ $book->price ?? '' }}" required><br>
         <input class="btn btn-primary mb-3" type="submit"
-            value="@if (@isset($book)) Editar @else Cadastrar @endif">
+            value="@if (@isset($book)) Salvar edição @else Finalizar cadastrar @endif">
         </form>
     </div>
     <div class="text-center mt-3"> <a href="{{ url('/books') }}"><button class="btn btn-dark">Voltar</button></a></div>
