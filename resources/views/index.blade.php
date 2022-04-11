@@ -4,7 +4,7 @@
 
 <h1 class="text-center">CRUD Laravel</h1>
 
-<div class="text-center mt-3 mb-4"><a href=""><button class="btn btn-success">Cadastrar</button></a></div>
+<div class="text-center"><a href="{{url("/books/create")}}"><button class="btn btn-success">Casdastrar Novo</button></a></div>
 
 <div class="col-8 m-auto">
     <table class="table text-center">
