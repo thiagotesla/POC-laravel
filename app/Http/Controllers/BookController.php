@@ -9,16 +9,6 @@ use App\User;
 
 class BookController extends Controller
 {
-
-    private $user;
-    private $book;
-
-    public function __construct()
-    {
-        $this->objUser = new User();
-        $this->objBook = new Book();
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +16,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $book=$this->objBook->all()->sortByDesc('title');
+        $book=Book::all()->sortBy('title');
         return view('index', compact('book'));
     }
 
@@ -37,7 +27,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        $users=$this->objUser->all();
+        $users=User::all();
         return view('create', compact('users'));
     }
 
@@ -49,7 +39,7 @@ class BookController extends Controller
      */
     public function store(BookRequest $request)
     {
-        $cadastro=$this->objBook->create(
+        $cadastro=Book::create(
             [
                 'user_id'=>$request->user_id,
                 'title'=>$request->title,
@@ -73,7 +63,7 @@ class BookController extends Controller
     public function show($id)
     {
 
-        $book=$this->objBook->find($id);
+        $book=Book::find($id);
         $user=$book->find($book->id)->relUsers;
         return view ('show', compact('book', 'user'));
     }
@@ -86,8 +76,8 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        $book=$this->objBook->find($id);
-        $users=$this->objUser->all();
+        $book=Book::find($id);
+        $users=User::all();
         return view('create', compact('book', 'users'));
     }
 
@@ -100,7 +90,7 @@ class BookController extends Controller
      */
     public function update(BookRequest $request, $id)
     {
-        $this->objBook->where(['id'=>$id])->update([
+        Book::where(['id'=>$id])->update([
             'user_id'=>$request->user_id,
             'title'=>$request->title,
             'pages'=>$request->pages,
