@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookRequest;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\User;
@@ -45,9 +46,21 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookRequest $request)
     {
-        //
+        $cadastro=$this->objBook->create(
+            [
+                'user_id'=>$request->user_id,
+                'title'=>$request->title,
+                'pages'=>$request->pages,
+                'price'=>$request->price,
+            ]
+        );
+        if($cadastro){
+            return redirect('books');
+        }else{
+            return redirect('books/create');
+        }
     }
 
     /**
