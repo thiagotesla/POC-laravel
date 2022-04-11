@@ -98,9 +98,15 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BookRequest $request, $id)
     {
-        //
+        $this->objBook->where(['id'=>$id])->update([
+            'user_id'=>$request->user_id,
+            'title'=>$request->title,
+            'pages'=>$request->pages,
+            'price'=>$request->price,
+        ]);
+        return redirect('books');
     }
 
     /**
