@@ -24,12 +24,12 @@
                 $user=$books->find($books->id)->relUsers
             @endphp
             <tr>
-                <th scope="row">{{ $books->id}}</th>
+                <th scope="row">{{$books->id}}</th>
                 <td>{{ $books->title }}</td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $books->price }}</td>
                 <td>
-                    <a href=""><button class="btn btn-dark">Vizualizar</button></a>
+                    <a href="{{url("books/$books->id")}}"><button class="btn btn-dark">Visualizar</button></a>
                     <a href=""><button class="btn btn-primary">Editar</button></a>
                     <a href=""><button class="btn btn-danger">Excluir</button></a>
                 </td>
