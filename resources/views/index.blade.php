@@ -30,7 +30,7 @@
                 <td>{{ $books->price }}</td>
                 <td>
                     <a href="{{url("books/$books->id")}}"><button class="btn btn-dark">Visualizar</button></a>
-                    <a href=""><button class="btn btn-primary">Editar</button></a>
+                    <a href="{{url("books/$books->id/edit")}}"><button class="btn btn-primary">Editar</button></a>
                     <a href=""><button class="btn btn-danger">Excluir</button></a>
                 </td>
               </tr>
