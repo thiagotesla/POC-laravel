@@ -6,7 +6,7 @@
 
 <div class="col-8 m-auto">
     <table class="table text-center">
-        <thead class="thead-dark">
+        <thead class="table-dark">
           <tr>
             <th scope="col">Id</th>
             <th scope="col">Título</th>
