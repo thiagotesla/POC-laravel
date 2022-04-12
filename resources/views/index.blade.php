@@ -7,6 +7,7 @@
 <div class="text-center mb-3"><a href="{{url("/books/create")}}"><button class="btn btn-success">Casdastrar Novo</button></a></div>
 
 <div class="col-8 m-auto">
+    @csrf
     <table class="table text-center">
         <thead class="table-dark">
           <tr>
@@ -27,18 +28,21 @@
                 <th scope="row">{{$books->id}}</th>
                 <td>{{ $books->title }}</td>
                 <td>{{ $user->name }}</td>
-                <td>{{ $books->price }}</td>
+                <td> R$ {{ $books->price }}</td>
                 <td>
                     <a href="{{url("books/$books->id")}}"><button class="btn btn-dark">Visualizar</button></a>
                     <a href="{{url("books/$books->id/edit")}}"><button class="btn btn-primary">Editar</button></a>
-                    <a href="{{url("books/$books->id/destroy")}}"><button class="btn btn-danger">Excluir</button></a>
+                    <a href="{{url("books/$books->id")}}" class="js-del"><button class="btn btn-danger">Excluir</button></a>
                 </td>
               </tr>
             @endforeach
 
 
         </tbody>
+
       </table>
+
+      
 </div>
 
 @endsection
