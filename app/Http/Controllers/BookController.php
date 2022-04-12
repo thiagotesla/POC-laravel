@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
-use Illuminate\Http\Request;
 use App\Models\Book;
 use App\User;
 
 class BookController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -107,6 +107,7 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $del=Book::destroy($id);
+        return($del)?"Sim":"Não";
     }
 }
