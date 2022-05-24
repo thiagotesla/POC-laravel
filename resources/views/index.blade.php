@@ -15,6 +15,7 @@
             <th scope="col">Título</th>
             <th scope="col">Autor</th>
             <th scope="col"> Preço</th>
+            <th scope="col"> Ativo</th>
             <th scope="col">Ações</th>
           </tr>
         </thead>
@@ -29,6 +30,7 @@
                 <td>{{ $books->title }}</td>
                 <td>{{ $user->name }}</td>
                 <td> R$ {{ $books->price }}</td>
+                <td> {{ $books->active }}</td>
                 <td>
                     <a href="{{url("books/$books->id")}}"><button class="btn btn-dark">Visualizar</button></a>
                     <a href="{{url("books/$books->id/edit")}}"><button class="btn btn-primary">Editar</button></a>
@@ -42,7 +44,7 @@
 
       </table>
 
-      
+
 </div>
 
 @endsection
