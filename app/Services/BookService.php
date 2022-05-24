@@ -2,32 +2,32 @@
 
 namespace App\Services;
 
-use App\Models\Book;
 use App\Http\Requests\BookRequest;
+use App\Repositories\BookRepository;
 
 class BookService
 {
-    public function __construct(Book $books)
+    public function __construct(BookRepository $bookRepo)
     {
-        $this->books = $books;
+        $this->bookRepo = $bookRepo;
     }
 
 
     public function index()
     {
-        $book=Book::all()->sortBy('title');
+        $book=$this->bookRepo->all()->sortBy('title');
         return $book;
     }
 
     public function create()
     {
-        $book=Book::all()->sortBy('title');
+        $book=$this->bookRepo->all()->sortBy('title');
         return $book;
     }
 
     public function store(BookRequest $request)
     {
-        $cadastro=Book::create(
+        $cadastro=$this->bookRepo->create(
             [
                 'user_id'=>$request->user_id,
                 'title'=>$request->title,
@@ -41,29 +41,29 @@ class BookService
 
     public function show($id)
     {
-        $book=Book::find($id);
+        $book=$this->bookRepo->find($id);
         return $book;
     }
 
     public function relUsers($id){
-        $book=Book::find($id);
+        $book=$this->bookRepo->find($id);
         $user = $book->find($book->id)->relUsers;
 
         return $user;
     }
 
     public function update(BookRequest $request, $id){
-        $book = Book::where(['id'=>$id])->update([
+        $book = $this->bookRepo->update([
             'user_id'=>$request->user_id,
             'title'=>$request->title,
             'pages'=>$request->pages,
             'price'=>$request->price,
-        ]);
+        ], $id);
         return $book;
     }
 
     public function destroy($id){
-        $del = Book::destroy($id);
+        $del = $this->bookRepo->destroy($id);
         return $del;
     }
 
