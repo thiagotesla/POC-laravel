@@ -3,11 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
-use App\Models\Book;
-use App\User;
+use App\Services\BookService;
+use App\Services\UserService;
 
 class BookController extends Controller
 {
+    private $bookService;
+    private $userService;
+
+    public function __construct(
+        BookService $bookService,
+        UserService $userService
+        )
+    {
+        $this->bookService = $bookService;
+        $this->userService = $userService;
+    }
 
     /**
      * Display a listing of the resource.
@@ -16,7 +27,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $book=Book::all()->sortBy('title');
+        $book = $this->bookService->index();
         return view('index', compact('book'));
     }
 
@@ -27,7 +38,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        $users=User::all();
+        $users = $this->userService->index();
         return view('create', compact('users'));
     }
 
@@ -39,19 +50,10 @@ class BookController extends Controller
      */
     public function store(BookRequest $request)
     {
-        $cadastro=Book::create(
-            [
-                'user_id'=>$request->user_id,
-                'title'=>$request->title,
-                'pages'=>$request->pages,
-                'price'=>$request->price,
-            ]
-        );
-        if($cadastro){
-            return redirect('books');
-        }else{
-            return redirect('books/create');
-        }
+        $cadastro = $this->bookService->store($request);
+        return $cadastro?
+            redirect('books'):
+                redirect('books/create');
     }
 
     /**
@@ -63,8 +65,8 @@ class BookController extends Controller
     public function show($id)
     {
 
-        $book=Book::find($id);
-        $user=$book->find($book->id)->relUsers;
+        $book= $this->bookService->show($id);
+        $user=$this->bookService->relUsers($id);
         return view ('show', compact('book', 'user'));
     }
 
@@ -76,8 +78,8 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        $book=Book::find($id);
-        $users=User::all();
+        $book= $this->bookService->show($id);
+        $users= $this->userService->index();
         return view('create', compact('book', 'users'));
     }
 
@@ -90,12 +92,8 @@ class BookController extends Controller
      */
     public function update(BookRequest $request, $id)
     {
-        Book::where(['id'=>$id])->update([
-            'user_id'=>$request->user_id,
-            'title'=>$request->title,
-            'pages'=>$request->pages,
-            'price'=>$request->price,
-        ]);
+        $book = $this->bookService->update($request, $id);
+        if($book)
         return redirect('books');
     }
 
@@ -107,7 +105,9 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        $del=Book::destroy($id);
-        return($del)?"Sim":"Não";
+        $del=$this->bookService->destroy($id);
+        return $del?
+            "Sim":
+                "Não";
     }
 }
