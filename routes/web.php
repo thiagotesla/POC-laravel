@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return redirect('/books');
-});
 
-Route::resource('books', 'BookController');
+
+Route::resource('/', 'BookController');
