@@ -3,7 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\Book;
-class BookRepository
+use App\RepositoryInterfaces\IBookRepository;
+
+class BookRepository implements IBookRepository
 {
 	private $model;
 

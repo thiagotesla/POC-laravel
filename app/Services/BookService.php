@@ -3,11 +3,13 @@
 namespace App\Services;
 
 use App\Http\Requests\BookRequest;
-use App\Repositories\BookRepository;
+use App\RepositoryInterfaces\IBookRepository;
 
 class BookService
 {
-    public function __construct(BookRepository $bookRepo)
+    private $bookRepo;
+    
+    public function __construct(IBookRepository $bookRepo)
     {
         $this->bookRepo = $bookRepo;
     }
