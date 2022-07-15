@@ -3,17 +3,18 @@
 namespace App\Services;
 
 use App\Http\Requests\BookRequest;
+use App\Http\Controllers\BookController;
+use App\ServicesInterfaces\IBookService;
 use App\RepositoryInterfaces\IBookRepository;
 
-class BookService
+class BookService implements IBookService
 {
     private $bookRepo;
-    
+
     public function __construct(IBookRepository $bookRepo)
     {
         $this->bookRepo = $bookRepo;
     }
-
 
     public function index()
     {
@@ -34,7 +35,7 @@ class BookService
                 'user_id'=>$request->user_id,
                 'title'=>$request->title,
                 'pages'=>$request->pages,
-                'price'=>$request->price,
+                'price'=>number_format($request->price, 3),
             ]
         );
 

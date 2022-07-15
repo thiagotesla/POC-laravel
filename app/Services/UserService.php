@@ -2,18 +2,22 @@
 
 namespace App\Services;
 
+use App\RepositoryInterfaces\IUserRepository;
 use App\User;
 
 class UserService
 {
-    public function __construct(User $users)
+    private $userRepo;
+
+    public function __construct(IUserRepository $userRepo)
     {
-        $this->users = $users;
+        $this->userRepo = $userRepo;
     }
+
+
 
     public function index()
     {
-        $users=User::all()->sortBy('title');
-        return $users;
+        return $this->userRepo->usersByName();
     }
 }

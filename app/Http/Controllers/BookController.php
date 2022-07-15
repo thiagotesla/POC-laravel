@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
-use App\Services\BookService;
 use App\Services\UserService;
+use App\ServicesInterfaces\IBookService;
 
 class BookController extends Controller
 {
@@ -12,7 +12,7 @@ class BookController extends Controller
     private $userService;
 
     public function __construct(
-        BookService $bookService,
+        IBookService $bookService,
         UserService $userService
         )
     {
